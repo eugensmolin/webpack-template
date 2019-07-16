@@ -3,7 +3,7 @@
     <section id="main">
         <div class="wrapper-example--second">
             <div class="container">
-                <h1>Example vuex {{ message }}</h1>
+                <h1>Example vue.js {{ message }}</h1>
             </div>
         </div>
     </section>

@@ -2,7 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
+const {VueLoaderPlugin} = require('vue-loader');
 
 const PATHS = {
     src: path.join(__dirname, '../src'),
@@ -18,9 +18,21 @@ module.exports = {
         app: PATHS.src
     },
     output: {
-        filename: `${PATHS.assets}js/[name].js`,
+        filename: `${PATHS.assets}js/[name].[hash].js`,
         path: PATHS.dist,
         publicPath: '/'
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    name: 'vendors',
+                    test: /node_modules/,
+                    chunks: 'all',
+                    enforce: true
+                }
+            }
+        }
     },
     module: {
         rules: [{
@@ -72,15 +84,20 @@ module.exports = {
             ],
         }]
     },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.js',
+        }
+    },
     plugins: [
         new VueLoaderPlugin(),
         new MiniCssExtractPlugin({
-            filename: `${PATHS.assets}css/[name].css`
+            filename: `${PATHS.assets}css/[name].[hash].css`
         }),
         new HtmlWebpackPlugin({
-            hash: false,
             template: `${PATHS.src}/index.html`,
-            filename: './index.html'
+            filename: './index.html',
+            // inject: false
         }),
         new CopyWebpackPlugin([
             { from: `${PATHS.src}/img`, to: `${PATHS.assets}img` },

@@ -7,10 +7,10 @@ import './scss/app.scss';
 window.Vue = require('vue');
 import store from './store';
 
-Vue.component('example', require('./components/Example.vue').default);
+Vue.component('example-component', require('./components/Example.vue').default);
 
 // Vue init
 const app = new Vue({
-    store,
-    el: '#app'
+    el: '#app',
+    store
 });

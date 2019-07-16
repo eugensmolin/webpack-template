@@ -1,6 +1,6 @@
 export default {
     state: {
-        message: 'hello vuex'
+        message: 'hello vuex!!!'
     },
     mutations: {},
     actions: {},
